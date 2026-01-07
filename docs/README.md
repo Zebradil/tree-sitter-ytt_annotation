@@ -14,8 +14,6 @@ but it should be similar for other Neovim setups that support Tree-Sitter.
 
 When in doubt, refer to the [nvim-treesitter documentation](https://github.com/nvim-treesitter/nvim-treesitter#adding-custom-languages).
 
-### Install the parser and queries
-
 ```lua
 -- Configure custom parser for YTT annotations grammar
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
@@ -35,42 +33,15 @@ return {
         -- Make sure it is installed
         -- Alternatively, you can run :TSInstall ytt_annotation
         "ytt_annotation",
+        -- Starlark grammar is optional but recommended for full syntax highlighting
+        "starlark",
       },
     },
   },
-  -- Install syntax highlighting queries
+  -- Install syntax highlighting and language injection queries
   {
     "zebradil/tree-sitter-ytt_annotation",
     lazy = false,
   },
 }
 ```
-
-### Configure language injection
-
-Now you can inject YTT annotations into YAML files.
-Add the following queries to your `nvim/after/queries/yaml/injections.scm` file:
-
-```query
-((comment) @injection.content
-  (#lua-match? @injection.content "^#@%a")
-  (#offset! @injection.content 0 2 0 0)  ; remove leading "#@"
-  (#set! injection.language "ytt_annotation"))
-```
-
-## Starlark
-
-Most likely you'd also want to add Starlark injections.
-
-Make sure you have the Starlark parser installed: `:TSInstall starlark`
-
-Then add the following to your `nvim/after/queries/yaml/injections.scm` file:
-
-```query
-((comment) @injection.content
-  (#lua-match? @injection.content "^#@ ")
-  (#offset! @injection.content 0 3 0 0)  ; remove leading "#@"
-  (#set! injection.language "starlark"))
-```
-
-This will provide a basic syntax highlighting for Starlark code in YTT templates.
