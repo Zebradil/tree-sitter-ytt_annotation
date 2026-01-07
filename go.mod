@@ -1,4 +1,4 @@
-module github.com/tree-sitter/tree-sitter-ytt_annotation
+module github.com/zebradil/tree-sitter-ytt_annotation
 
 go 1.22
 

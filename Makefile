@@ -3,7 +3,7 @@ $(error Windows is not supported)
 endif
 
 LANGUAGE_NAME := tree-sitter-ytt-annotation
-HOMEPAGE_URL := https://github.com/tree-sitter/tree-sitter-ytt_annotation
+HOMEPAGE_URL := https://github.com/zebradil/tree-sitter-ytt_annotation
 VERSION := 0.1.0
 
 # repository

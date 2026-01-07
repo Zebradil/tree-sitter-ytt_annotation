@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.1.0",
   "description": "YttAnnotation grammar for tree-sitter",
-  "repository": "https://github.com/tree-sitter/tree-sitter-ytt_annotation",
+  "repository": "https://github.com/zebradil/tree-sitter-ytt_annotation",
   "license": "MIT",
   "author": {
     "name": "German Lashevich",
