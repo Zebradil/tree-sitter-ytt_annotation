@@ -19,7 +19,6 @@ M.setup = function(opts)
 			branch = "main",
 			files = { "src/parser.c" },
 		},
-		filetype = "yaml",
 	}
 
 	if install then
