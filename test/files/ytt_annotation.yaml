@@ -1,0 +1,2 @@
+#@foo/bar hello = "world", via=lambda a, b: return a + b
+#@bar/baz number=42, list=[1, 2, 3], func=foo("arg", key="value", 32)
