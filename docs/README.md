@@ -2,8 +2,10 @@
 
 This repository provides a Tree-Sitter grammar for [YTT](https://carvel.dev/ytt) (YAML Templating Tool) annotations.
 
-![syntax highlighting enabled](hl-on.png)
-![syntax highlighting disabled](hl-off.png)
+<p align="center">
+  <a href="hl-on.png" target="_blank"><img src="hl-on.png" alt="syntax highlighting enabled" width="800" style="max-width: 100%;"></a>
+  <a href="hl-off.png" target="_blank"><img src="hl-off.png" alt="syntax highlighting disabled" width="800" style="max-width: 100%;"></a>
+</p>
 
 ## Installation
 
