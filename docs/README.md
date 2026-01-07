@@ -15,16 +15,6 @@ but it should be similar for other Neovim setups that support Tree-Sitter.
 When in doubt, refer to the [nvim-treesitter documentation](https://github.com/nvim-treesitter/nvim-treesitter#adding-custom-languages).
 
 ```lua
--- Configure custom parser for YTT annotations grammar
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-parser_config.ytt_annotation = {
-  install_info = {
-    url = "https://github.com/zebradil/tree-sitter-ytt_annotation",
-    branch = "main",
-    files = { "src/parser.c" },
-  },
-}
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -41,7 +31,7 @@ return {
   -- Install syntax highlighting and language injection queries
   {
     "zebradil/tree-sitter-ytt_annotation",
-    lazy = false,
+    ft = { "yaml" },
   },
 }
 ```
