@@ -1,0 +1,50 @@
+==================
+Basic Annotation
+==================
+foo/bar hello="world", via = lambda a, b: return a + b
+
+---
+
+(annotation
+  name: (annotation_name)
+  (argument_pair
+    name: (identifier)
+    value: (string))
+  (argument_pair
+    name: (identifier)
+    value: (lambda
+      parameters: (parameter_list
+        (identifier)
+        (identifier))
+      body: (return_statement
+        (binary_expression
+          (identifier)
+          (identifier))))))
+
+==================
+Complex Arguments
+==================
+bar/baz number = 42, list=[1, 2, 3], func=foo("arg", key="value", 32)
+
+---
+
+(annotation
+  name: (annotation_name)
+  (argument_pair
+    name: (identifier)
+    value: (integer))
+  (argument_pair
+    name: (identifier)
+    value: (list
+      (integer)
+      (integer)
+      (integer)))
+  (argument_pair
+    name: (identifier)
+    value: (function_call
+      function: (identifier)
+      (string)
+      (argument_pair
+        name: (identifier)
+        value: (string))
+      (integer))))
