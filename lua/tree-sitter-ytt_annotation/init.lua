@@ -1,8 +1,12 @@
 local M = {}
 
-M.setup = function()
+M.setup = function(opts)
+	opts = opts or {}
+	local install = opts.install ~= false -- Default: true
+
 	local ok, parsers = pcall(require, "nvim-treesitter.parsers")
 	if not ok then
+		vim.notify("tree-sitter-ytt_annotation: nvim-treesitter not found", vim.log.levels.WARN)
 		return
 	end
 
@@ -15,8 +19,20 @@ M.setup = function()
 			branch = "main",
 			files = { "src/parser.c" },
 		},
-		filetype = "ytt_annotation",
+		filetype = "yaml",
 	}
+
+	if install then
+		local is_ytt_annotation_installed = #vim.api.nvim_get_runtime_file("parser/ytt_annotation.so", false) > 0
+		if not is_ytt_annotation_installed then
+			vim.cmd("TSInstall ytt_annotation")
+		end
+
+		local is_starlark_installed = #vim.api.nvim_get_runtime_file("parser/starlark.so", false) > 0
+		if not is_starlark_installed then
+			vim.cmd("TSInstall starlark")
+		end
+	end
 end
 
 return M

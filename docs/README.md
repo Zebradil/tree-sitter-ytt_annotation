@@ -17,20 +17,8 @@ When in doubt, refer to the [nvim-treesitter documentation](https://github.com/n
 ```lua
 return {
   {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        -- Make sure it is installed
-        -- Alternatively, you can run :TSInstall ytt_annotation
-        "ytt_annotation",
-        -- Starlark grammar is optional but recommended for full syntax highlighting
-        "starlark",
-      },
-    },
-  },
-  -- Install syntax highlighting and language injection queries
-  {
     "zebradil/tree-sitter-ytt_annotation",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     ft = { "yaml" },
   },
 }
