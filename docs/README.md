@@ -14,17 +14,14 @@ This repository provides a [YTT](https://carvel.dev/ytt) (YAML Templating Tool) 
 
 ## Installation
 
-This particular configuration is for AstroNvim4,
-but it should be similar for other Neovim setups that support Tree-Sitter.
-
-When in doubt, refer to the [nvim-treesitter documentation](https://github.com/nvim-treesitter/nvim-treesitter#adding-custom-languages).
+Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
-return {
-  {
-    "zebradil/tree-sitter-ytt_annotation",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    ft = { "yaml" },
-  },
+{
+  "zebradil/tree-sitter-ytt_annotation",
+  dependencies = { "nvim-treesitter/nvim-treesitter" },
+  -- tree-sitter language injection queries aren't always properly loaded
+  -- during lazy loading, so we disable it here
+  lazy = false,
 }
 ```
