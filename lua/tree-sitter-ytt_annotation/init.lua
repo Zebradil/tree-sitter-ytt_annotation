@@ -10,10 +10,7 @@ M.setup = function(opts)
 		return
 	end
 
-	local parser_config = parsers.get_parser_configs()
-
-	---@diagnostic disable-next-line: inject-field
-	parser_config.ytt_annotation = {
+	local parser_def = {
 		install_info = {
 			url = "https://github.com/zebradil/tree-sitter-ytt_annotation",
 			branch = "main",
@@ -21,15 +18,30 @@ M.setup = function(opts)
 		},
 	}
 
+	if type(parsers.get_parser_configs) == "function" then
+		-- Old nvim-treesitter (master branch)
+		---@diagnostic disable-next-line: inject-field
+		parsers.get_parser_configs().ytt_annotation = parser_def
+	else
+		-- New nvim-treesitter (main branch): direct table assignment
+		parsers.ytt_annotation = parser_def
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "TSUpdate",
+			callback = function()
+				require("nvim-treesitter.parsers").ytt_annotation = parser_def
+			end,
+		})
+	end
+
 	if install then
 		local is_ytt_annotation_installed = #vim.api.nvim_get_runtime_file("parser/ytt_annotation.so", false) > 0
 		if not is_ytt_annotation_installed then
-			vim.cmd("TSInstall ytt_annotation")
+			pcall(function() vim.cmd("TSInstall ytt_annotation") end)
 		end
 
 		local is_starlark_installed = #vim.api.nvim_get_runtime_file("parser/starlark.so", false) > 0
 		if not is_starlark_installed then
-			vim.cmd("TSInstall starlark")
+			pcall(function() vim.cmd("TSInstall starlark") end)
 		end
 	end
 end
