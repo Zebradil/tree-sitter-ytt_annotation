@@ -6,7 +6,12 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
     {
       overlays.default = final: prev: {
         tree-sitter-ytt_annotation = final.tree-sitter.buildGrammar {
@@ -17,10 +22,13 @@
         vimPlugins = prev.vimPlugins // {
           tree-sitter-ytt_annotation-nvim =
             let
-              base = final.vimPlugins.nvim-treesitter.grammarToPlugin
-                final.tree-sitter-ytt_annotation;
+              base = final.vimPlugins.nvim-treesitter.grammarToPlugin final.tree-sitter-ytt_annotation;
             in
             base.overrideAttrs (old: {
+              dependencies = (old.dependencies or [ ]) ++ [
+                final.vimPlugins.nvim-treesitter-parsers.yaml
+                final.vimPlugins.nvim-treesitter-parsers.starlark
+              ];
               # Append the after/ directory for YAML injection queries
               postInstall = (old.postInstall or "") + ''
                 mkdir -p $out/after/queries/yaml
@@ -31,8 +39,8 @@
         };
       };
     }
-    //
-    flake-utils.lib.eachDefaultSystem (system:
+    // flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = import nixpkgs {
           inherit system;
