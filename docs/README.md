@@ -25,3 +25,32 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
   lazy = false,
 }
 ```
+
+### Nix
+
+**Step 1.** Add the flake input:
+
+```nix
+# flake.nix
+{
+  inputs.tree-sitter-ytt_annotation.url = "github:zebradil/tree-sitter-ytt_annotation";
+}
+```
+
+**Step 2.** Apply the overlay:
+
+```nix
+nixpkgs.overlays = [
+  inputs.tree-sitter-ytt_annotation.overlays.default
+];
+```
+
+**Step 3.** Add the grammar and plugin to your Neovim configuration:
+
+```nix
+# Add to grammarPackages
+pkgs.tree-sitter-ytt_annotation
+
+# Add to extraPlugins (includes yaml and starlark parser dependencies)
+pkgs.vimPlugins.tree-sitter-ytt_annotation-nvim
+```
